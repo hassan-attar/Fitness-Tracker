@@ -1,0 +1,22 @@
+INSERT INTO Comments (userID, recipeID, `comment`)
+VALUES
+    (1, 1, 'This grilled chicken salad is delicious! The flavors are amazing.'),
+    (1, 2, 'The quinoa-stuffed bell peppers are so flavorful and satisfying.'),
+    (2, 3, 'Salmon with roasted vegetables is my favorite go-to dinner.'),
+    (2, 4, 'The Greek yogurt parfait is a refreshing and healthy breakfast option.'),
+    (3, 5, 'I love the vegetable stir-fry! It\'s packed with colorful and nutritious veggies.'),
+    (3, 6, 'The lentil soup is a comforting and hearty dish, perfect for chilly days.'),
+    (4, 7, 'Oven-baked sweet potato fries are my guilt-free indulgence.'),
+    (4, 8, 'Avocado toast is my favorite quick and easy snack.'),
+    (5, 9, 'The veggie wrap is a satisfying and filling meal for lunch.'),
+    (5, 10, 'The quinoa salad with lemon dressing is tangy and refreshing.'),
+    (1, 11, 'Baked chicken breast is a healthy and flavorful protein option.'),
+    (2, 12, 'The fruit smoothie bowl is a great way to start the day with a burst of fruity flavors.'),
+    (3, 13, 'The vegetable omelette is a delicious and nutritious breakfast choice.'),
+    (4, 14, 'The quinoa Buddha bowl is packed with wholesome ingredients and tastes amazing.'),
+    (5, 15, 'Caprese salad is a classic and elegant dish that never disappoints.'),
+    (1, 5, 'I can never get enough of the vegetable stir-fry. So yummy!'),
+    (1, 6, 'The lentil soup is my go-to comfort food on cold winter nRatingsights.'),
+    (2, 10, 'The quinoa salad with lemon dressing is a party for the taste buds.'),
+    (3, 14, 'The quinoa Buddha bowl is my favorite lunch option for a healthy and satisfying meal.'),
+    (4, 15, 'Caprese salad is my all-time favorite salad. I can eat it every day!');
