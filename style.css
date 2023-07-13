@@ -1,0 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+:root {
+  --main-bg-color: #a3def1;
+  --element-bg-color: #caeaf4;
+  --hover-bg-color: #51c3ea;
+  --text-color: #495057;
+  --hover-text-color: #212529;
+  --font-text: "Roboto Condensed", sans-serif;
+  --font-title: "Merriweather Sans", sans-serif;
+}
