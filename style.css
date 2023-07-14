@@ -8,3 +8,72 @@
   --font-text: "Roboto Condensed", sans-serif;
   --font-title: "Merriweather Sans", sans-serif;
 }
+
+
+
+
+
+/*   copied css */
+body {
+  font-family: var(--font-text);
+  background-color: var(--main-bg-color);
+  color: #3D60A7;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  width: 360px;
+  margin: 100px auto;
+  border: 1px solid black;
+}
+
+input {
+  /* font-size: large 18px; */
+  background-color: var(--element-bg-color);
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+h1 {
+  background: var(--element-bg-color);
+  margin: 0;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  font-size: 24px;
+}
+
+li {
+  background-color: var(--element-bg-color);
+  height: 60px;
+  line-height: 60px;
+  padding: 0.5rem 1rem;
+  border: 1px solid #3D60A7;
+  display: flex;
+  justify-content: space-between;
+}
+
+li:nth-child(2n) {
+  background-color: var(--element-bg-color);
+}
+
+#newItemContainer {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+#addBtn {
+  color: #3D60A7;
+}
+
+.done {
+  color: #3D60A7;
+  text-decoration: line-through;
+}
+
+/* end of copied code */
