@@ -1,5 +1,11 @@
 <?php
-require "./model/util/connect_db.php";
+session_start();
+$userName = $_SESSION["firstName"];
+$userId = $_SESSION["userId"];
+
+require_once 'vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +19,9 @@ require "./model/util/connect_db.php";
 
 <body>
   <h1>Hello world</h1>
-  <?php echo connect_db(); ?>
+  <h3> <?php var_dump($_SESSION)?></h3>
+  <h2>Welcome <?php echo $userName?></h2>
+  <a href="logout.php">Logout</a>
   <header>
     <!-- TODO Nav -->
     <!-- TODO brand -->
