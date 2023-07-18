@@ -3,6 +3,7 @@ $validation_error;
 require './validation/validate_email.php';
 require './validation/validate_password.php';
 require('./model/util/connect_db.php');
+require('./util/mail/send_mail.php');
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   global $validation_error;

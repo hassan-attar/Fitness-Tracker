@@ -6,6 +6,7 @@ require './validation/validate_email.php';
 require './validation/validate_password.php';
 require './validation/validate_string.php';
 require('./model/util/connect_db.php');
+require "./util/mail/send_mail.php";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   global $validation_error;
@@ -44,6 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     if ($stmt->execute()) {
       // Insertion was successful
+ 
       
       $sql = "SELECT * FROM Users WHERE email=?";
       $stmt = $conn->prepare($sql);
@@ -52,6 +54,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       
       $result = $stmt->get_result();
       $row = $result->fetch_assoc();
+      $firstName = $row["firstName"];
+      send_email($_POST["email"], "Welcome to Fitness Tracker", "Dear $firstName,\n\nWe are thrilled to welcome you to our Fitness Tracker community! We're delighted that you've taken the first step towards a healthier and more active lifestyle.\n\nBest regards,\nYour Fitness Tracker");
+      
       session_start();
       $_SESSION["userId"] = $row["userID"];
       $_SESSION["firstName"] = $row["firstName"];
