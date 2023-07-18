@@ -1,5 +1,5 @@
 <?php
-$validation_error;
+
 
 function validate_gender()
 {

@@ -1,5 +1,5 @@
 <?php
-  $validation_error;
+
   /**
    * returns true if string email is valid ; otherwise false;
    * @fieldName: the name of the field for the data.
@@ -18,7 +18,7 @@
           $validation_error['password'] = "";
           return true;
       } else {
-          $validation_error['email'] = "Enter a valid password address. It must contain 8 characters, at least one number and 1 letter.";
+          $validation_error['password'] = "Enter a valid password address. It must contain 8 characters, at least one number and 1 letter.";
           return false;
       }
     } else {

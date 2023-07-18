@@ -1,5 +1,5 @@
 <?php
-  $validation_error;
+
   function validate_birthday() {
     global $validation_error;
     $dateString = "";
