@@ -30,19 +30,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
     if($row){
-      $sql = "UPDATE Users SET forgetPasswordToken=?, forgetTokenExpiresAt=? WHERE userID =?";
+      $sql = "UPDATE Users SET forgetPasswordToken=?, forgetTokenExpiresAt=?, forgetPasswordSelector=? WHERE userID =?";
       $forgetPasswordToken = (string)bin2hex(random_bytes(32));
+      $selector =substr(bin2hex(random_bytes(16)),0, 16);
       $tokenHashed = password_hash($forgetPasswordToken, PASSWORD_DEFAULT);
       $currentDateTime = new DateTime();
       $currentDateTime->add(new DateInterval('PT10M'));
       $expiresIn = $currentDateTime->format('Y-m-d H:i:s');
-      
+      var_dump($selector);
       $stmt = $conn->prepare($sql);
-      $stmt->bind_param("ssi", $tokenHashed ,$expiresIn, $row["userID"]);
+      $stmt->bind_param("sssi", $tokenHashed ,$expiresIn, $selector , $row["userID"]);
       $stmt->execute();
 
       $publicURL = $_ENV["PUBLIC_URL"];
-      send_forgot_password_email($firstName, $row["email"], $publicURL."/reset-password.php?key=".$tokenHashed);
+      send_forgot_password_email($row["email"], $publicURL."/reset-password.php?key=".$forgetPasswordToken."&selector=".$selector);
     }
     $validation_error["general"] = "If you had an account with us, you will get the reset email shortly!";
   }

@@ -8,7 +8,7 @@ $userId = $_SESSION["userId"];
 require('./model/util/connect_db.php');
 require("./validation/get_validation_message.php");
 require './validation/validate_string.php';
-require "./util/mail/send_confirm_mail.php";
+require "./util/mail/send_confirm_email.php";
 $validation_error;
 
 if(!$userId){
