@@ -21,6 +21,7 @@ $dotenv->load();
   <h1>Hello world</h1>
   <h3> <?php var_dump($_SESSION)?></h3>
   <h2>Welcome <?php echo $userName?></h2>
+  <p>Confirm your email here <a href="confirm-email.php">Confrim</a> </p>
   <a href="logout.php">Logout</a>
   <header>
     <!-- TODO Nav -->

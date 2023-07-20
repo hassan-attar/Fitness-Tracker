@@ -1,5 +1,9 @@
 <?php
+session_start();
+$userName = $_SESSION["firstName"];
+$userId = $_SESSION["userId"];
 $validation_error;
+
 require './validation/validate_email.php';
 require './validation/validate_password.php';
 require('./model/util/connect_db.php');

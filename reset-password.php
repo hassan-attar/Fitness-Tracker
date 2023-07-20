@@ -111,31 +111,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   <header></header>
   <main>
     <form method="POST" action="signup.php">
-      <label for="firstName">First Name</label>
-      <input type="text" name="firstName" id="firstName" <?= remember_input_value("firstName")?> />
-      <?= get_validation_message("firstName") ?>
-
-      <label for="lastName">Last Name</label>
-      <input type="text" name="lastName" id="lastName" <?= remember_input_value("lastName")?> />
-      <?= get_validation_message("lastName") ?>
-      <label for="birthday">Birth Date</label>
-      <input type="date" name="birthday" id="birthday" <?= remember_input_value("birthday")?> />
-      <?= get_validation_message("birthday") ?>
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email" <?= remember_input_value("email")?> />
-      <?= get_validation_message("email") ?>
-
-      <label for="gender">Gender</label>
-      <select name="gender" id="gender">
-        <option value="F" <?= isset($_POST["gender"]) && $_POST["gender"]=="F" ? "selected": ""; ?>>Female
-        </option>
-        <option value="M" <?= isset($_POST["gender"]) && $_POST["gender"]=="M"? "selected": ""; ?>>Male</option>
-        <option value="O" <?= isset($_POST["gender"]) && $_POST["gender"]=="O"? "selected": ""; ?>>Others
-        </option>
-      </select>
-      <?= get_validation_message("gender") ?>
-
       <label for="password">Password</label>
+      <input type="hidden" name="reset-token" value=""/>
       <input type="password" name="password" id="password" />
       <?= get_validation_message("password") ?>
       <label for="passwordConfirm">Confirm Password</label>
