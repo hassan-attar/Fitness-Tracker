@@ -1,12 +1,15 @@
 <?php
+date_default_timezone_set('America/Vancouver');
 session_start();
 $userName = $_SESSION["firstName"];
 $userId = $_SESSION["userId"];
+$userEmail = $_SESSION["email"];
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 $validation_error;
+$global_values;
 require './validation/validate_date.php';
 require './validation/validate_gender.php';
 require './validation/validate_email.php';
@@ -64,6 +67,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       session_start();
       $_SESSION["userId"] = $row["userID"];
       $_SESSION["firstName"] = $row["firstName"];
+      $_SESSION["email"] = $row["email"];
       $sql = "UPDATE Users SET authConfirmKey=?, authKeyExpiresAt=? WHERE userID =?";
       $emailConfirmKey = (string)rand(111111,999999);
       $keyHashed = password_hash($emailConfirmKey, PASSWORD_DEFAULT);
@@ -77,7 +81,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
       $publicURL = $_ENV["PUBLIC_URL"];
       send_welcome_email($firstName, $row["email"], $publicURL."/confirm-email.php?key=".$emailConfirmKey, $emailConfirmKey);
-      header("Location: index.php");
+      $_SESSION["auth-code-expires-at"] = $expiresIn;
+      header("Location: confirm-email.php");
       exit();
       
     } else {

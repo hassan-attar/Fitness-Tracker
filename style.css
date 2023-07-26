@@ -9,15 +9,23 @@
   --font-title: "Merriweather Sans", sans-serif;
 }
 
-
-
-
+html {
+  font-size: 62.5%;
+  /* 1 rem = 10px */
+}
 
 /*   copied css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body {
   font-family: var(--font-text);
   background-color: var(--main-bg-color);
-  color: #3D60A7;
+  color: #3d60a7;
+  min-height: 100vh;
 }
 
 ul {
@@ -53,7 +61,7 @@ li {
   height: 60px;
   line-height: 60px;
   padding: 0.5rem 1rem;
-  border: 1px solid #3D60A7;
+  border: 1px solid #3d60a7;
   display: flex;
   justify-content: space-between;
 }
@@ -68,12 +76,173 @@ li:nth-child(2n) {
 }
 
 #addBtn {
-  color: #3D60A7;
+  color: #3d60a7;
 }
 
 .done {
-  color: #3D60A7;
+  color: #3d60a7;
   text-decoration: line-through;
 }
 
-/* end of copied code */
+main {
+  width: 120rem;
+  margin: 20rem auto;
+}
+
+/* //////////////////////////////////////////////// */
+/* ///////////////// RECIPE CART ////////////////// */
+/* //////////////////////////////////////////////// */
+.recipe-card {
+  width: 35rem;
+  height: 55rem;
+
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 10px;
+}
+
+.recipe-card .recipe-image {
+  width: 100%;
+  height: 50%;
+}
+.recipe-card .recipe-image > img {
+  height: 100%;
+  width: 100%;
+}
+
+.recipe-card .cook-time,
+.recipe-card .calories {
+  position: absolute;
+  padding: 0.5rem 0.8rem;
+  background-color: #06b6d4;
+  border-radius: 15px;
+  color: #164e63;
+  font-size: 1.6rem;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+.recipe-card .cook-time:hover,
+.recipe-card .calories:hover {
+  background-color: #22d3ee;
+}
+
+.cook-time,
+.calories {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.cook-time {
+  top: 0.5rem;
+  left: 0.5rem;
+}
+.calories {
+  top: 0.5rem;
+  right: 0.5rem;
+}
+.recipe-card .content {
+  padding: 1.5rem;
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.recipe-card .title {
+  font-family: var(--font-title);
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+.recipe-card .description {
+  font-family: var(--font-text);
+  color: var(--text-color);
+  font-size: 1.8rem;
+  line-height: 1.5;
+}
+.ingredients {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.ingredients .ingredient {
+  padding: 0.3rem 0.6rem;
+  background-color: #06b6d4;
+  border-radius: 15px;
+  color: #164e63;
+  font-size: 1.4rem;
+  transition: all 0.3s;
+}
+.ingredients .ingredient:hover {
+  background-color: #22d3ee;
+}
+
+.recipe-card .card-footer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.recipe-card .card-footer .rating {
+  font-size: 1.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+.recipe-card .card-footer .rating > span {
+  margin-top: 0.3rem;
+}
+.recipe-card .card-footer .rating > .star {
+  color: #f97316;
+}
+
+.recipe-card .card-footer .action {
+  padding: 1rem 1.8rem;
+  background-color: #06b6d4;
+  border-radius: 15px;
+  border: none;
+  font-size: 1.4rem;
+  transition: all 0.3s;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 1px 1px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
+}
+
+.recipe-card .card-footer .action:hover {
+  background-color: #22d3ee;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
+}
+.recipes-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 5rem;
+  row-gap: 8rem;
+}
+
+/* //////////////////////////////////////////////// */
+/* //////////////////// MODAL ///////////////////// */
+/* //////////////////////////////////////////////// */
+#overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: #49505744;
+  position: fixed;
+}
+#modal {
+  position: fixed;
+  border: 1px solid black;
+  height: 40vh;
+  width: 40vw;
+  top: 30vh;
+  left: 30vw;
+  background-color: #06b6d4;
+}

@@ -1,5 +1,5 @@
 <?php 
-function get_confirm_email($firstName){
+function get_auth_code_email($firstName, $authKey){
   return '<!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -480,15 +480,25 @@ function get_confirm_email($firstName){
                 <tr>
                   <td class="content-cell">
                     <div class="f-fallback">
-                      <h1>Dear '.$firstName.',</h1>
-                      <p>Your email has been successfully verified, and your account is now officially active.<br> Congratulations! You are now part of an inspiring community of fitness enthusiasts who are committed to achieving their health and wellness goals.<br><br>
-                      
-                      Thank you for choosing Fitness Tracker as your trusted companion on the path to a healthier and happier you. We are excited to be a part of your progress and celebrate your achievements along the way!<br><br>
-                      
-                      Stay active, stay motivated, and let\'s conquer new milestones together!</p>
-                      <!-- Action -->
-                      
-                      <p>Kind regards,
+                      <h1>Hello '.$firstName.', </h1>
+                      <p>Here is your authentication code, It\'s valid for <strong>5 minutes</strong> only:
+                      </p>
+                      <table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                        <tr>
+                          <td class="attributes_content">
+                            <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
+                              <tr>
+                                <td class="attributes_item">
+                                  <span class="f-fallback">
+                                    <strong>Authentication Code:</strong> '.$authKey.'
+                                  </span>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                      <p>Best regards,
                         <br>Your Fitness Tracker
                       </p>
                     </div>
@@ -505,7 +515,7 @@ function get_confirm_email($firstName){
                   <td class="content-cell" align="center">
                     <p class="f-fallback sub align-center">
                       Fitness Tracker CO.
-                      <br>Vancouver, BC, Canada
+                      <br>Vancouver, CA
                       <br>401 W Georgia St
                       <br>Suite 631
                     </p>

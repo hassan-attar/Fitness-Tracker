@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Vancouver');
 session_start();
 $userName = $_SESSION["firstName"];
 $userId = $_SESSION["userId"];
@@ -52,6 +53,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["key"]) && !empty($_POST
         session_start();
         $_SESSION["userId"] = $row["userID"];
         $_SESSION["firstName"] = $row["firstName"];
+        $_SESSION["email"] = $row["email"];
         header("Location: index.php");
         exit();
       }
