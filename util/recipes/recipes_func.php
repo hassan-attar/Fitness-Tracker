@@ -2,7 +2,12 @@
 require_once $_SERVER['DOCUMENT_ROOT']."/Fitness-Tracker/model/util/connect_db.php";
 function get_all_recipes() {
   $conn = connect_db();
-  $sql = "SELECT r.*, i.ingredientsList FROM Recipes r JOIN (SELECT recipeID, GROUP_CONCAT(ingredientName) AS ingredientsList FROM Ingredients GROUP BY recipeID) i ON r.recipeID = i.recipeID";
+  $sql = "SELECT r.*, i.ingredientsList 
+          FROM Recipes r 
+          JOIN (SELECT recipeID, GROUP_CONCAT(ingredientName) AS ingredientsList
+          FROM Ingredients 
+          GROUP BY recipeID) i ON r.recipeID = i.recipeID";
+  
   $stmt = $conn->prepare($sql);
   $stmt->execute();
   
@@ -12,6 +17,25 @@ function get_all_recipes() {
     array_push($recipes, $row);
   }
   return $recipes;
+}
+function get_recipe_by_id($id) {
+  $conn = connect_db();
+  $sql = "SELECT r.*, i.ingredientsList 
+          FROM Recipes r
+          JOIN (SELECT recipeID, GROUP_CONCAT(ingredientName) AS ingredientsList
+          FROM Ingredients 
+          GROUP BY recipeID) i ON r.recipeID = i.recipeID
+          WHERE r.recipeID=?";
+  
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("i", $id);
+  $stmt->execute();
+  
+  $result = $stmt->get_result();
+
+  $row = $result->fetch_assoc();
+  
+  return $row;
 }
 
 function filter_recipes_by_name($recipes, $filterName) {
@@ -48,7 +72,28 @@ function filter_by_cookTime($recipes, $maxCookTime){
   });
 }
 
-function  render_recipes($recipes){
+function get_reviews_for_recipe($id) {
+  $conn = connect_db();
+  $sql = "SELECT 
+          r.ratingID, u.firstName, r.rate, c.comment, c.date
+          FROM Users u
+          LEFT JOIN Ratings r ON u.userID = r.userID
+          LEFT JOIN Comments c ON u.userID = c.userID AND r.recipeID = c.recipeID
+          WHERE r.recipeID =?";
+  
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("i", $id);
+  $stmt->execute();
+  
+  $result = $stmt->get_result();
+  $reviews = array();
+  while($row = $result->fetch_assoc()){
+    array_push($reviews, $row);
+  }
+  return $reviews;
+}
+
+function render_recipes($recipes){
   foreach($recipes as $recipe){
     echo '
     <div class="recipe-card">
@@ -79,7 +124,7 @@ function  render_recipes($recipes){
           <span class="rating">
             <ion-icon name="star" class="star"></ion-icon><span>'.$recipe["averageRating"].'</span>
           </span>
-          <button class="action">Find out more</button>
+          <button class="action" data-recipe-id="'.$recipe["recipeID"].'">Find out more</button>
         </div>
       </div>
     </div>
