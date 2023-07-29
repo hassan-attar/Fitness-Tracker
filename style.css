@@ -86,7 +86,10 @@ li:nth-child(2n) {
 
 main {
   width: 120rem;
-  margin: 20rem auto;
+  margin: 10rem auto;
+  display: grid;
+  grid-template-columns: 1fr 20rem;
+  column-gap: 5rem;
 }
 
 /* //////////////////////////////////////////////// */
@@ -324,6 +327,21 @@ main {
   margin-bottom: 0.6rem;
 }
 
+#modal .main .review-form .user-rating {
+  display: flex;
+  gap: 1rem;
+}
+#modal .main .review-form .star-group input {
+  display: none;
+}
+#modal .main .review-form .star-group label {
+  font-size: 2rem;
+}
+#modal .main .review-form .star-group {
+  display: flex;
+  gap: 0.3rem;
+}
+
 #modal .main .review-form button {
   padding: 1rem 1.8rem;
   background-color: #06b6d4;
@@ -404,4 +422,107 @@ main {
 .user-reviews .review .footer span {
   display: flex;
   gap: 0.1rem;
+}
+
+#modal .main .alert-message {
+  font-size: 1.8rem;
+}
+#modal .main .login:link,
+#modal .main .login:visited {
+  display: inline-block;
+  padding: 1rem 1.8rem;
+  background-color: #06b6d4;
+  border-radius: 15px;
+  border: none;
+  font-size: 1.4rem;
+  transition: all 0.3s;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 1px 1px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text-color);
+  margin: 1rem;
+}
+#modal .main .login:hover,
+#modal .main .login:active {
+  background-color: #22d3ee;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
+}
+
+/* //////////////////////////////////////////////// */
+/* ////////////////// SEARCH BAR ////////////////// */
+/* //////////////////////////////////////////////// */
+header .search-bar form {
+  display: inline-block;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
+
+  background-color: #c9e5ee;
+  border-radius: 15px;
+  height: 3rem;
+  width: 20rem;
+  display: grid;
+  grid-template-columns: 8fr 2fr;
+  grid-template-rows: 1fr;
+}
+header .search-bar form input {
+  background: none;
+  border: none;
+  height: 100%;
+  grid-column: 1/2;
+
+  padding-left: 1rem;
+}
+header .search-bar form input:focus {
+  border-radius: 15px;
+}
+header .search-bar form button {
+  background: none;
+  border: none;
+  height: 100%;
+  grid-column: 2/3;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+header .search-bar form button:hover {
+  transform: scale(1.2);
+}
+header .search-bar form button ion-icon {
+  font-size: 1.8rem;
+}
+
+/* //////////////////////////////////////////////// */
+/* //////////////////// ASIDE ///////////////////// */
+/* //////////////////////////////////////////////// */
+main aside {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+main aside.recipe-filter form .by-cal {
+  position: relative;
+}
+main aside.recipe-filter form .by-cal input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  appearance: none;
+  background: transparent;
+}
+main aside.recipe-filter form .by-cal input::-webkit-slider-runnable-track {
+  width: 300px;
+  height: 5px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+main aside.recipe-filter form .by-cal input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: #0273a0;
+  margin-top: -6px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
 }

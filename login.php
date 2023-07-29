@@ -1,13 +1,15 @@
 <?php
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL); 
 session_start();
 $userName = $_SESSION["firstName"];
 $userId = $_SESSION["userId"];
 $validation_error;
 
-require './validation/validate_email.php';
-require './validation/validate_password.php';
-require('./model/util/connect_db.php');
-require('./util/mail/send_mail.php');
+require_once './validation/validate_email.php';
+require_once './validation/validate_password.php';
+require_once ('./model/util/connect_db.php');
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   global $validation_error;
