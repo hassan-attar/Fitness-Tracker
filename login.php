@@ -10,6 +10,9 @@ $validation_error;
 require_once './validation/validate_email.php';
 require_once './validation/validate_password.php';
 require_once ('./model/util/connect_db.php');
+require_once './component/header.php';
+require_once './component/head.php';
+require_once './component/footer.php';
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   global $validation_error;
@@ -47,29 +50,41 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fitness Tracker - Sign up</title>
+  <?= render_head("FT - login"); ?>
+
+
 </head>
 
 <body>
-  <header></header>
-  <main>
-    <form method="POST" action="login.php">
-      <p><?php echo isset($validation_error["email"])? $validation_error["email"]: ""?></p>
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email"
-        <?php echo isset($_POST["email"]) ? "value='".$_POST["email"]."'" :"value=''" ?> />
-      <p><?php echo isset($validation_error["password"])? $validation_error["password"]: ""?></p>
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" />
+  <div class="a-index-wrapper">
+    <?= render_header($userName); ?>
+    <main>
+      <form method="POST" action="login.php" class="login">
+        <h2>Login Here</h2>
 
-      <button type="submit">Submit</button>
-      <p><?php echo isset($validation_error["general"])? $validation_error["general"]: ""?></p>
-    </form>
-    </div>
-  </main>
-  <footer></footer>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="You@example.com"
+          <?php echo isset($validation_error["email"]) && !empty($validation_error["email"])? 'class="invalid"': ""?>
+          <?php echo isset($_POST["email"]) && !empty($_POST["email"]) ? "value='".$_POST["email"]."'" :"value=''" ?> />
+        <p><?php echo isset($validation_error["email"]) && !empty($_POST["email"])? $validation_error["email"]: ""?></p>
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password"
+          <?php echo isset($validation_error["password"])  && !empty($validation_error["password"])? 'class="invalid"': ""?>
+          placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" />
+        <p><?php echo isset($validation_error["password"])? $validation_error["password"]: ""?></p>
+
+        <p>
+          <?php echo isset($validation_error["general"])? $validation_error["general"]: ""?></p>
+        <button type="submit">Submit</button>
+        <a href=<?= $_ENV["PUBLIC_URL"].'/signup.php'?>>Sign up</a>
+        <a href=<?= $_ENV["PUBLIC_URL"].'/forgot-password.php'?>>Forgot password?</a>
+
+      </form>
+
+    </main>
+    <?= render_footer(); ?>
+  </div>
 </body>
 
 </html>

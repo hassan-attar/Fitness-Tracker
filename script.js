@@ -3,7 +3,7 @@ $(document).ready(function () {
     clearReviews();
     let reviews;
     // For Reviews
-    console.log(data);
+
     if (data.length === 0) {
       reviews =
         "<p class='alert-message'>Be the first one who let us know how it tastes!</p>";
@@ -154,20 +154,6 @@ $(document).ready(function () {
     });
   });
 
-  $("#modal .main .review-form .star-group input").on("change", function (e) {
-    const curRateValue = e.target.value;
-
-    Array.from(
-      $("#modal .main .review-form .star-group label ion-icon")
-    ).forEach((el) => {
-      if (curRateValue >= el.dataset.starVal) {
-        el.setAttribute("name", "star");
-      } else {
-        el.setAttribute("name", "star-outline");
-      }
-    });
-  });
-
   $("#modal .main .review-form").on("submit", function (e) {
     e.preventDefault();
     const id = $("#modal > .header .title")[0].dataset.recipeId;
@@ -176,5 +162,123 @@ $(document).ready(function () {
     $.post("api/review.php?id=" + id, reqData).done(function (data) {
       loadReviews(data);
     });
+  });
+  $("main aside ul.selectedList").on("click", function (e) {
+    const dataEl = document.getElementById("ingredients");
+    dataEl.value = dataEl.value.split(`+${e.target.textContent},`).join("");
+
+    $(e.target).remove();
+  });
+  $("main aside ul.unselectedList").on("click", function (e) {
+    const dataEl = document.getElementById("ingredients");
+    dataEl.value = dataEl.value.split(`-${e.target.textContent},`).join("");
+
+    $(e.target).remove();
+  });
+  $("#ing-to-have").on("focus", function (e) {
+    const dataEl = document.getElementById("ingredients");
+    const ingredientsList = Array.from(
+      $("main aside form .by-ing datalist")[0].options
+    ).map((opt) => opt.value);
+    $(this).on("keypress", function (e) {
+      if (e.key === "Enter") {
+        if (
+          ingredientsList.includes(this.value) &&
+          !dataEl.value.includes(this.value)
+        ) {
+          dataEl.value += `+${this.value},`;
+          $("main aside ul.selectedList").append(`<li>${this.value}</li>`);
+        }
+        this.value = "";
+      }
+    });
+  });
+  $("#ing-to-have").on("blur", function (e) {
+    $(this).off("keypress");
+  });
+  $("#ing-not-to-have").on("focus", function (e) {
+    const ingredientsList = Array.from(
+      $("main aside form .by-ing datalist")[0].options
+    ).map((opt) => opt.value);
+    const dataEl = document.getElementById("ingredients");
+    $(this).on("keypress", function (e) {
+      if (e.key === "Enter") {
+        if (
+          ingredientsList.includes(this.value) &&
+          !dataEl.value.includes(this.value)
+        ) {
+          dataEl.value += `-${this.value},`;
+          $("main aside ul.unselectedList").append(`<li>${this.value}</li>`);
+        }
+
+        this.value = "";
+      }
+    });
+  });
+  $("#ing-not-to-have").on("blur", function (e) {
+    $(this).off("keypress");
+  });
+
+  $("main aside form").on("keypress", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      return;
+    }
+  });
+  $("main aside form button[type='reset']").on("click", function (e) {
+    const curUrl = window.location.href;
+    console.log(curUrl);
+    const newUrl = curUrl.split("?")[0];
+    location.assign(newUrl);
+  });
+
+  $("main aside form .by-cal input").on("input", function (e) {
+    const inputs = this.closest("div").querySelectorAll("input");
+    let larger, smaller;
+    if (+inputs[0].value >= +inputs[1].value) {
+      larger = inputs[0];
+      smaller = inputs[1];
+    } else {
+      larger = inputs[1];
+      smaller = inputs[0];
+    }
+    larger.setAttribute("name", "maxCal");
+    smaller.setAttribute("name", "minCal");
+    $("main aside form .by-cal span.to").html(larger.value + " Cal");
+    $("main aside form .by-cal span.from").html(smaller.value + " Cal");
+  });
+  const starGroupChangeHandler = function (e) {
+    const curRateValue = e.target.value;
+    Array.from(
+      this.closest("div").querySelectorAll("label > ion-icon")
+    ).forEach((el) => {
+      if (curRateValue >= el.dataset.starVal) {
+        el.setAttribute("name", "star");
+      } else {
+        el.setAttribute("name", "star-outline");
+      }
+    });
+  };
+  $("main > aside form .by-rating input").on("change", starGroupChangeHandler);
+  if ($("main > aside form .by-rating").data("previousRate")) {
+    const curRateValue = $("main > aside form .by-rating").data("previousRate");
+    delete $("main > aside form .by-rating")[0].dataset.previousRate;
+    Array.from($("main > aside form .by-rating label > ion-icon")).forEach(
+      (el) => {
+        if (curRateValue >= el.dataset.starVal) {
+          el.setAttribute("name", "star");
+        } else {
+          el.setAttribute("name", "star-outline");
+        }
+      }
+    );
+  }
+  $("#modal > .main form.review-form .star-group input").on(
+    "change",
+    starGroupChangeHandler
+  );
+
+  $("main > aside form .by-cook-time input").on("input", function (e) {
+    $(this).parent().find("label > span").html(`${e.target.value} Minutes`);
   });
 });

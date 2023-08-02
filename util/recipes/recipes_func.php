@@ -18,6 +18,30 @@ function get_all_recipes() {
   }
   return $recipes;
 }
+
+function get_all_unique_ingredients(){
+  $conn = connect_db();
+  $sql = "SELECT DISTINCT ingredientName
+          FROM Ingredients";
+  
+  $stmt = $conn->prepare($sql);
+  $stmt->execute();
+  
+  $result = $stmt->get_result();
+  $ingredients = array();
+  while($row = $result->fetch_assoc()){
+    array_push($ingredients, $row["ingredientName"]);
+  }
+  return $ingredients;
+}
+
+function render_ingredients_datalist($ingredients){
+  echo '<datalist id="ingredientList">';
+  foreach($ingredients as $ing){
+  echo    '<option value="'.$ing.'">';
+  }
+  echo '</datalist>';
+}
 function get_recipe_by_id($id) {
   $conn = connect_db();
   $sql = "SELECT r.*, i.ingredientsList 
@@ -58,7 +82,7 @@ function filter_recipes_by_ingredients($recipes, $selectedIngredients, $isHaving
 }
 function filter_recipes_by_calories($recipes, $minCal, $maxCal){
   return array_filter($recipes, function($recipe) use ($minCal, $maxCal){
-    return intval($recipe["calories"]) >= $minCal && intval($recipe["calories"]) <= $maxCal;
+    return $recipe["calories"] >= intval($minCal) && $recipe["calories"] <= intval($maxCal);
   });
 }
 function filter_recipes_by_rating($recipes, $minRate){
@@ -72,6 +96,29 @@ function filter_recipes_by_cookTime($recipes, $maxCookTime){
   });
 }
 
+function print_ingredients_list_item($ingredientsStr ,$selected){
+  
+  $listItems = "";
+  foreach(explode(",", $ingredientsStr) as $value){
+    if(empty($value)){
+      continue;
+    }
+    if($selected){
+      
+      if(str_starts_with($value, "+")){
+        $listItems = $listItems . '<li>'.substr($value,1).'</li>';
+      }
+    }else {
+      
+      if(str_starts_with($value, "-")){
+        $listItems = $listItems . '<li>'.substr($value,1).'</li>';
+      }
+    }
+  }
+
+  return $listItems;
+  
+}
 
 
 function render_recipes($recipes){

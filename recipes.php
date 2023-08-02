@@ -6,6 +6,9 @@ require_once 'vendor/autoload.php';
 require_once './util/recipes/recipes_func.php';
 require_once './util/review/reviews_func.php';
 require_once './component/review_form.php';
+require_once './component/header.php';
+require_once './component/head.php';
+require_once './component/footer.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load(); 
 function get_filtered_recipes(){
@@ -14,11 +17,14 @@ function get_filtered_recipes(){
     $recipes = filter_recipes_by_name($recipes,$_GET["search"]);
   }
 
-  if(isset($_GET["ingredient"]) && !empty($_GET["ingredient"])){
-    $ingredientList = explode(",", $_GET["ingredient"]);
+  if(isset($_GET["ingredients"]) && !empty($_GET["ingredients"])){
+    $ingredientList = explode(",", $_GET["ingredients"]);
     $ingToHave = array();
     $ingNotToHave = array();
     foreach($ingredientList as $ing){
+      if(empty($ing)){
+        continue;
+      }
       if(str_starts_with($ing, "-")){
         array_push($ingNotToHave, substr($ing, strpos($ing, "-") + 1));
       } else if (str_starts_with($ing, "+")){
@@ -35,9 +41,10 @@ function get_filtered_recipes(){
     }
   }
   
-  if(isset($_GET["maxCal"]) && !empty($_GET["MaxCal"]) || isset($_GET["minCal"]) && !empty($_GET["minCal"])){
-    $minCal = $_GET["minCal"] || 0;
-    $maxCal = $_GET["maxCal"] || 2000;
+  if(isset($_GET["maxCal"]) && !empty($_GET["maxCal"]) || isset($_GET["minCal"]) && !empty($_GET["minCal"])){
+
+    $minCal = empty($_GET["minCal"])? 0 : $_GET["minCal"];
+    $maxCal =  empty($_GET["maxCal"])? 0 : $_GET["maxCal"];
     $recipes = filter_recipes_by_calories($recipes,$minCal, $maxCal);
   }
 
@@ -57,75 +64,113 @@ function get_filtered_recipes(){
  <html lang="en">
 
  <head>
-   <meta charset="UTF-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <title>My Fitness Tracker</title>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-   <script src="script.js" defer></script>
-   <link rel="stylesheet" href="style.css" />
+   <?= render_head("FT - Recipes");?>
  </head>
 
+
+
  <body>
-   <header>
-     <!-- TODO Nav -->
-     <!-- TODO brand -->
-     <div class="search-bar">
-       <form method="GET">
 
-         <label for="search" hidden>
-           Search recipes
-         </label>
-         <input type="text" name="search" id="search" placeholder="Recipe Search"
-           <?= isset($_GET["search"]) && !empty($_GET["search"])? 'value="'.$_GET["search"].'"': "" ?>>
-         <button type="submit">
-           <ion-icon name="search-outline"></ion-icon>
-         </button>
 
-       </form>
-     </div>
-   </header>
-   <main>
-     <div class="recipes-container">
-       <?php render_recipes(get_filtered_recipes()); ?>
-     </div>
-     <aside class="recipe-filter">
-       <h3>Filter Results</h3>
-       <form>
-         <div class="by-ing">
-           <h4>Filter by Ingredients:</h4>
-           <div class="ing-to-have">
-             <h5>To Have:</h5>
-             <label for="+ing1">ing1</label>
-             <input type="checkbox" name="+ing1" id="+ing1">
+   <!-- Wrapper -->
+   <div class="a-index-wrapper">
+     <?= render_header($userName); ?>
+
+     <main>
+       <div id="search-bar">
+         <form method="GET">
+
+           <label for="search" hidden>
+             Search recipes
+           </label>
+           <input type="text" name="search" id="search" placeholder="Recipe Search"
+             <?= isset($_GET["search"]) && !empty($_GET["search"])? 'value="'.$_GET["search"].'"': "" ?>>
+           <button type="submit">
+             <ion-icon name="search-outline"></ion-icon>
+           </button>
+
+         </form>
+       </div>
+       <div class="recipes-container">
+         <?php render_recipes(get_filtered_recipes()); ?>
+       </div>
+       <aside class="recipe-filter">
+         <h3>Filter Results</h3>
+         <form method="GET">
+           <div class="by-ing">
+             <h4>Filter by Ingredients:</h4>
+             <div class="ing-to-have">
+               <label for="ing-to-have">To Have:</label>
+               <input type="text" list="ingredientList" placeholder="Select and press Enter" id="ing-to-have">
+               <ul class="selectedList">
+                 <?= isset($_GET["ingredients"]) && !empty($_GET["ingredients"]) ? print_ingredients_list_item($_GET["ingredients"], true): "" ?>
+               </ul>
+
+               <label for="ing-not-to-have">Not to Have:</label>
+               <input type="text" list="ingredientList" placeholder="Select and press Enter" id="ing-not-to-have">
+               <ul class="unselectedList">
+                 <?= isset($_GET["ingredients"]) && !empty($_GET["ingredients"]) ? print_ingredients_list_item($_GET["ingredients"], false): "" ?>
+               </ul>
+               <?php render_ingredients_datalist(get_all_unique_ingredients()) ?>
+               <input type="hidden" id="ingredients" name="ingredients"
+                 <?= isset($_GET["ingredients"]) && !empty($_GET["ingredients"]) ?'value="'.$_GET["ingredients"].'"': 'value=""' ?>>
+             </div>
+             <h4>Filter by Calorie:</h4>
+             <div class="by-cal">
+               <label for="minCal">from</label><label for="maxCal">to</label>
+               <input type="range" step="1" name="minCal" id="minCal" min="0" max="1000"
+                 <?= isset($_GET["minCal"]) && !empty($_GET["minCal"])? 'value="'.$_GET["minCal"].'"': 'value="0"' ?>>
+               <input type="range" step="1" name="maxCal" id="maxCal" min="0" max="1000"
+                 <?= isset($_GET["maxCal"]) && !empty($_GET["maxCal"])? 'value="'.$_GET["maxCal"].'"': 'value="1000"' ?>>
+               <span class="from"><?= isset($_GET["minCal"]) && !empty($_GET["minCal"])? $_GET["minCal"]: '0' ?>
+                 Cal</span><span
+                 class="to"><?= isset($_GET["maxCal"]) && !empty($_GET["maxCal"])? $_GET["maxCal"]: '1000' ?> Cal</span>
+             </div>
            </div>
-           <div class="ing-not-to-have">
-             <h5>Not to Have:</h5>
-             <label for="-ing1">ing1</label>
-             <input type="checkbox" name="-ing1" id="-ing1">
+           <h4>Filter by Rating:</h4>
+           <div class="by-rating"
+             <?= isset($_GET["minRating"]) && !empty($_GET["minRating"])? 'data-previous-rate="'.$_GET["minRating"].'"': '' ?>>
+             <label for="star-1f">
+               <ion-icon name="star-outline" class="star" data-star-val=1></ion-icon>
+             </label>
+             <label for="star-2f">
+               <ion-icon name="star-outline" class="star" data-star-val=2></ion-icon>
+             </label>
+             <label for="star-3f">
+               <ion-icon name="star-outline" class="star" data-star-val=3></ion-icon>
+             </label>
+             <label for="star-4f">
+               <ion-icon name="star-outline" class="star" data-star-val=4></ion-icon>
+             </label>
+             <label for="star-5f">
+               <ion-icon name="star-outline" class="star" data-star-val=5></ion-icon>
+             </label>
+             <input type="radio" name="minRating" id="star-1f" value="1"
+               <?= isset($_GET["minRating"]) && !empty($_GET["minRating"])? (intval($_GET["minRating"]) == 1 ? "checked": ""): '' ?> />
+             <input type="radio" name="minRating" id="star-2f" value="2"
+               <?= isset($_GET["minRating"]) && !empty($_GET["minRating"])? (intval($_GET["minRating"]) == 2 ? "checked": ""): '' ?> />
+             <input type="radio" name="minRating" id="star-3f" value="3"
+               <?= isset($_GET["minRating"]) && !empty($_GET["minRating"])? (intval($_GET["minRating"]) == 3 ? "checked": ""): '' ?> />
+             <input type="radio" name="minRating" id="star-4f" value="4"
+               <?= isset($_GET["minRating"]) && !empty($_GET["minRating"])? (intval($_GET["minRating"]) == 4 ? "checked": ""): '' ?> />
+             <input type="radio" name="minRating" id="star-5f" value="5"
+               <?= isset($_GET["minRating"]) && !empty($_GET["minRating"])? (intval($_GET["minRating"]) == 5 ? "checked": ""): '' ?> />
            </div>
-         </div>
-         <div class="by-cal">
-           <label for="minCal">Minimum Calorie</label>
-           <input type="range" step="1" name="minCal" id="minCal" min="0" max="2000">
-           <label for="maxCal">Maximum Calorie</label>
-           <input type="range" step="1" name="maxCal" id="maxCal" min="0" max="2000">
-         </div>
-         <div class="by-rate">
-           <label for="minRating">Rating more than:</label>
-           <input type="range" step="0.1" name="minRating" id="minRating" min="0.0" max="5.0">
-         </div>
-         <div class="by-cook-time">
-           <label for="maxCookTime">Cook time less than:</label>
-           <input type="range" step="1" name="maxCookTime" id="maxCookTime" min="0" max="180">
-         </div>
-       </form>
-     </aside>
-   </main>
-   <footer>
-     <!-- TODO footer -->
-   </footer>
+           <h4>Filter by Cook Time:</h4>
+           <div class="by-cook-time">
+             <label for="maxCookTime">at most:
+               <span><?= isset($_GET["maxCookTime"]) && !empty($_GET["maxCookTime"])? $_GET["maxCookTime"]: '90' ?>
+                 Minutes</span></label>
+             <input type="range" step="1" name="maxCookTime" id="maxCookTime" min="0" max="90"
+               <?= isset($_GET["maxCookTime"]) && !empty($_GET["maxCookTime"])? 'value="'.$_GET["maxCookTime"].'"': 'value="90"' ?>>
+           </div>
+           <button type="submit">Submit</button>
+           <button type="reset">Reset</button>
+         </form>
+       </aside>
+     </main>
+     <?= render_footer(); ?>
+   </div>
    <!-- MODAL -->
    <div id="overlay"></div>
    <div id="modal">
@@ -136,7 +181,7 @@ function get_filtered_recipes(){
      </div>
      <div class="main">
        <div class="reviews-content">
-         <?= $userId ? review_form() : '<p class="alert-message">To share your thoughts, please login!</p><a class="login" href="/login.php">Login</a>' ?>
+         <?= $userId ? review_form() : '<p class="alert-message">To share your thoughts, please login!</p><a class="login" href="'.$_ENV["PUBLIC_URL"].'/login.php">Login</a>' ?>
          <h4>Reviews</h4>
          <div class="user-reviews">
          </div>

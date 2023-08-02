@@ -20,6 +20,10 @@ require "./util/mail/send_welcome_mail.php";
 require("./validation/get_validation_message.php");
 require('./util/form/remember_input_value.php');
 require $_SERVER['DOCUMENT_ROOT']."/Fitness-Tracker/config.php";
+require_once './component/header.php';
+require_once './component/head.php';
+require_once './component/footer.php';
+
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -107,51 +111,60 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fitness Tracker - Sign up</title>
+  <?= render_head("FT - Sign up"); ?>
 </head>
 
 <body>
-  <header></header>
-  <main>
-    <form method="POST" action="signup.php">
-      <label for="firstName">First Name</label>
-      <input type="text" name="firstName" id="firstName" <?= remember_input_value("firstName")?> />
-      <?= get_validation_message("firstName") ?>
+  <div class="a-index-wrapper">
+    <?= render_header($userName); ?>
+    <main>
+      <form method="POST" action="signup.php" class="sign-up">
+        <h2>Sign up</h2>
+        <div>
+          <label for="firstName">First Name</label>
+          <input type="text" name="firstName" id="firstName" <?= remember_input_value("firstName")?> />
+          <?= get_validation_message("firstName") ?>
 
-      <label for="lastName">Last Name</label>
-      <input type="text" name="lastName" id="lastName" <?= remember_input_value("lastName")?> />
-      <?= get_validation_message("lastName") ?>
-      <label for="birthday">Birth Date</label>
-      <input type="date" name="birthday" id="birthday" <?= remember_input_value("birthday")?> />
-      <?= get_validation_message("birthday") ?>
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email" <?= remember_input_value("email")?> />
-      <?= get_validation_message("email") ?>
+          <label for="lastName">Last Name</label>
+          <input type="text" name="lastName" id="lastName" <?= remember_input_value("lastName")?> />
+          <?= get_validation_message("lastName") ?>
+          <label for="birthday">Birth Date</label>
+          <input type="date" name="birthday" id="birthday" <?= remember_input_value("birthday")?> />
+          <?= get_validation_message("birthday") ?>
+          <label for="gender">Gender</label>
+          <select name="gender" id="gender">
+            <option value="F" <?= isset($_POST["gender"]) && $_POST["gender"]=="F" ? "selected": ""; ?>>Female
+            </option>
+            <option value="M" <?= isset($_POST["gender"]) && $_POST["gender"]=="M"? "selected": ""; ?>>Male</option>
+            <option value="O" <?= isset($_POST["gender"]) && $_POST["gender"]=="O"? "selected": ""; ?>>Others
+            </option>
+          </select>
+          <?= get_validation_message("gender") ?>
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" <?= remember_input_value("email")?> />
+          <?= get_validation_message("email") ?>
 
-      <label for="gender">Gender</label>
-      <select name="gender" id="gender">
-        <option value="F" <?= isset($_POST["gender"]) && $_POST["gender"]=="F" ? "selected": ""; ?>>Female
-        </option>
-        <option value="M" <?= isset($_POST["gender"]) && $_POST["gender"]=="M"? "selected": ""; ?>>Male</option>
-        <option value="O" <?= isset($_POST["gender"]) && $_POST["gender"]=="O"? "selected": ""; ?>>Others
-        </option>
-      </select>
-      <?= get_validation_message("gender") ?>
 
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" />
-      <?= get_validation_message("password") ?>
-      <label for="passwordConfirm">Confirm Password</label>
-      <input type="password" name="passwordConfirm" id="passwordConfirm" />
-      <?= get_validation_message("passwordConfirm") ?>
-      <button type="submit">Submit</button>
-      <p><?php echo isset($validation_error["general"])? $validation_error["general"]: ""?></p>
-    </form>
-    </div>
-  </main>
-  <footer></footer>
+
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" />
+          <?= get_validation_message("password") ?>
+          <label for="passwordConfirm">Confirm Password</label>
+          <input type="password" name="passwordConfirm" id="passwordConfirm" />
+          <?= get_validation_message("passwordConfirm") ?>
+
+        </div>
+        <button type="submit">Submit</button>
+        <p><?php echo isset($validation_error["general"])? $validation_error["general"]: ""?></p>
+
+
+      </form>
+
+    </main>
+    <?= render_footer(); ?>
+  </div>
 </body>
 
 </html>
