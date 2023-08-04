@@ -73,7 +73,17 @@ To set up the Fitness Tracker website on your local server, follow the steps bel
 
 4. Set up environment variables by creating a .env file and filling in the variables as specified in .env.example.
 
-5. Start a local web server to run the website.
+5. Make sure you have Composer installed on your system. If you don't have it yet, you can download and install it from the official website: https://getcomposer.org/
+
+6. In your project's root directory (where the composer.json file is located), open a terminal or command prompt.
+
+7. Run the following command to install the project's dependencies:
+```bash
+composer install
+```
+Once the installation is complete, you should see a vendor directory created in your project containing the installed dependencies.
+
+8. Start a local web server to run the website.
 
 Please note that the project may require some additional configuration based on your local development environment.
 
