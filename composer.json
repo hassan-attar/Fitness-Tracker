@@ -1,0 +1,14 @@
+{
+  "require": {
+    "vlucas/phpdotenv": "^5.5",
+    "mailgun/mailgun-php": "^3.5",
+    "symfony/http-client": "^6.3",
+    "nyholm/psr7": "^1.8",
+    "sendgrid/sendgrid": "~7.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
+  }
+}
