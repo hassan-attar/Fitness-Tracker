@@ -87,6 +87,19 @@ Once the installation is complete, you should see a vendor directory created in 
 
 Please note that the project may require some additional configuration based on your local development environment.
 
+## Project Showcase
+
+Here's a glimpse of the Fitness Tracker Website in action:
+
+### Login, write review on recipe and AJAX calls
+
+![Login](./ft-login-review.gif)
+
+### Recipe Filtering
+
+![Recipes Page](./ft-recipes-filter.gif)
+
+
 ## Acknowledgments
 
 We would like to express our gratitude to our instructor, Adnan Reza, for providing us with this opportunity to collaborate on a larger-scale project.
