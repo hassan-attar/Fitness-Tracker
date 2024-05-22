@@ -1,7 +1,6 @@
-
 # Fitness Tracker Project</h1>
-<img src="./public/img/fitness-tracker-logo.png" alt="Fitness Tracker Logo" width="200" height="200">
 
+<img src="./public/img/fitness-tracker-logo.png" alt="Fitness Tracker Logo" width="200" height="200">
 
 Welcome to our Fitness Tracker project repository! This project was developed by a team of three students, each contributing their expertise to create a feature-rich fitness tracker application. The team members and their respective roles in the project are as follows:
 
@@ -27,12 +26,12 @@ Despite having no prior experience in PHP, we were able quickly grasp the langua
 
 - **RESTful API Routes**: Created API routes in PHP to facilitate smooth data loading and updating on the client side without page refreshes. These routes were extensively used on the recipe page.
 
-- **Data Model**: We crafted a well-structured database schema, ensuring that the data was organized in a normalized manner. 
+- **Data Model**: We crafted a well-structured database schema, ensuring that the data was organized in a normalized manner.
 
 - **Reusable Components**: Inspired by React, we attempted to create reusable components, making the application more maintainable and scalable. For instance, the `render_recipe_card` function was developed to render all recipes retrieved from the database, similar to React's approach.
 
 - **Filtering Recipes**: Users could filter recipes based on their names, specific ingredients they wanted, ingredients they wanted to exclude, minimum and maximum calorie limits, maximum cooking time, and minimum rating.
- 
+
 - **Utility Functions**: As a team, we prioritized writing modular code as much as possible, even though time constraints were a factor. We focused on creating reusable functionality for different parts of the application.
 
 ### Frontend Development
@@ -78,9 +77,11 @@ To set up the Fitness Tracker website on your local server, follow the steps bel
 6. In your project's root directory (where the composer.json file is located), open a terminal or command prompt.
 
 7. Run the following command to install the project's dependencies:
+
 ```bash
 composer install
 ```
+
 Once the installation is complete, you should see a vendor directory created in your project containing the installed dependencies.
 
 8. Start a local web server to run the website.
@@ -93,12 +94,25 @@ Here's a glimpse of the Fitness Tracker Website in action:
 
 ### Login, write review on recipe and AJAX calls
 
-![Login](./ft-login-review.gif)
+![Login](./screenshots/ft-login-review.gif)
 
 ### Recipe Filtering
 
-![Recipes Page](./ft-recipes-filter.gif)
+![Recipes Page](./screenshots/ft-recipes-filter.gif)
 
+### Emails
+
+#### Welcome Email
+
+![](./screenshots/welcome-email.png)
+
+#### Account verified
+
+![](./screenshots/account-verified-email.png)
+
+#### Reset Password
+
+![](./screenshots/password-reset-email.png)
 
 ## Acknowledgments
 
