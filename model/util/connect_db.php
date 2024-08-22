@@ -1,11 +1,9 @@
 <?php
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
 // require_once '../../vendor/autoload.php';
 // $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 // $dotenv->load();
-require $_SERVER['DOCUMENT_ROOT']."/Fitness-Tracker/config.php";
+require_once __DIR__ . "/../../config.php";
+mysqli_report(MYSQLI_REPORT_OFF);
 function connect_db() {
 
   $conn = new mysqli($_ENV["DB_HOST"], $_ENV["DB_USER"], $_ENV["DB_PASS"], $_ENV["DB_NAME"]);
@@ -20,4 +18,3 @@ function connect_db() {
   
 }
 connect_db();
-?>

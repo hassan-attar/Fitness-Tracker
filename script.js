@@ -159,10 +159,14 @@ $(document).ready(function () {
     const id = $("#modal > .header .title")[0].dataset.recipeId;
     const formData = new FormData(this);
     const reqData = Object.fromEntries(formData.entries());
-    $.post("api/review.php?id=" + id, reqData).done(function (data) {
+    console.log("HERE")
+    console.log("reqData", reqData)
+    $.post("api/review.php?id=" + id, reqData).done(function (data, err) {
+      if(err){console.log(err)}
       loadReviews(data);
     });
   });
+  
   $("main aside ul.selectedList").on("click", function (e) {
     const dataEl = document.getElementById("ingredients");
     dataEl.value = dataEl.value.split(`+${e.target.textContent},`).join("");

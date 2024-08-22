@@ -586,6 +586,7 @@ main aside form .by-rating {
 /* //////////////////////////////////////////////// */
 /* GENERAL STYLE */
 main aside {
+  top: 100px
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -596,7 +597,6 @@ main aside {
   position: fixed;
 
   right: var(--edge-padding);
-  margin-top: 5rem;
 }
 @media screen and (min-width: 1401px) {
   main aside {
@@ -677,6 +677,10 @@ main aside ul.unselectedList li:hover {
   text-decoration-color: brown;
 }
 /* Calorie filter style */
+aside.recipe-filter {
+  z-index: 10000;
+  background-color: #a3def1;
+}
 
 main aside.recipe-filter form .by-cal {
   position: relative;
@@ -740,7 +744,6 @@ main aside.recipe-filter form .by-cook-time input::-webkit-slider-thumb {
   margin-top: -6px;
   cursor: pointer;
   position: relative;
-  z-index: 1;
 }
 
 main aside.recipe-filter form .by-cook-time input {
@@ -1554,11 +1557,11 @@ main.main-page {
     font-size: 1.2rem;
   }
   main aside {
+    top: 100px;
     gap: 2rem;
     padding: 1rem;
     position: fixed;
     right: var(--edge-padding);
-    margin-top: 5rem;
     width: 23rem;
   }
 
@@ -1617,7 +1620,6 @@ main.main-page {
     padding: 1rem;
     position: fixed;
     right: var(--edge-padding);
-    margin-top: 5rem;
     width: 23rem;
   }
 
@@ -1771,7 +1773,6 @@ main.main-page {
     padding: 1rem;
     position: fixed;
     right: var(--edge-padding);
-    margin-top: 5rem;
     width: 23rem;
   }
 
@@ -1835,7 +1836,6 @@ main.main-page {
     position: relative;
 
     right: var(--edge-padding);
-    margin-top: 5rem;
     width: 23rem;
     grid-row: 1/2;
   }
@@ -1872,4 +1872,9 @@ main.main-page {
     left: 15vw;
     padding-bottom: 5rem;
   }
+}
+
+.unavailable {
+  opacity: 0.3 !important;
+  cursor: not-allowed !important;
 }

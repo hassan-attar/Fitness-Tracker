@@ -1,6 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT']."/Fitness-Tracker/model/util/connect_db.php";
+require_once __DIR__ ."/../../model/util/connect_db.php";
 function create_review($id, $comment, $rate) {
   global $userId;
   $conn = connect_db();
@@ -9,7 +9,6 @@ function create_review($id, $comment, $rate) {
   
   $stmt = $conn->prepare($sql);
   $stmt->bind_param("iisi", $userId, $id,$comment, $rate);
-  
   
   if($stmt->execute()){
     return true;

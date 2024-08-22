@@ -10,8 +10,8 @@ function render_header($userName){
         <input type="checkbox" id="menu-toggle" />
         <label for="menu-toggle" class="menu-icon">&#9776;</label>
         <ul class="menu">
-        <li><a href="#">Fitness Tracker</a></li>
-        <li><a href="#">Todo List</a></li>
+        <li><a href="#" class="unavailable">Fitness Tracker</a></li>
+        <li><a href="#" class="unavailable">Todo List</a></li>
         <li><a href="'.$_ENV["PUBLIC_URL"].'/recipes.php">Recipes</a></li>
           <li><a href="'.$_ENV["PUBLIC_URL"].'/login.php">Login</a></li>
         </ul>

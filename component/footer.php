@@ -35,8 +35,8 @@ function render_footer(){
                   <ul class="links-container">
                     <li><a href="'.$_ENV["PUBLIC_URL"].'">Home</a></li>
                     <li><a href="'.$_ENV["PUBLIC_URL"].'/recipes.php">Recipes</a></li>
-                    <li><a href="#">Todo</a></li>
-                    <li><a href="#">Fitness Tracker</a></li>
+                    <li><a href="#" class="unavailable">Todo</a></li>
+                    <li><a href="#" class="unavailable">Fitness Tracker</a></li>
                   </ul>
                 </div>
                 <div class="links-group">
@@ -44,13 +44,13 @@ function render_footer(){
                   <ul class="links-container">
                     <li><a href="'.$_ENV["PUBLIC_URL"].'/login.php">Login</a></li>
                     <li><a href="'.$_ENV["PUBLIC_URL"].'/signup.php">Sign up</a></li>
-                    <li><a href="'.$_ENV["PUBLIC_URL"].'">API</a></li>
+                    <li><a href="'.$_ENV["PUBLIC_URL"].'" class="unavailable" >API</a></li>
                   </ul>
                 </div>
               </div>
               <div class="copy-right">
                 <p>
-                  Copyright &copy; Web project for course CPSC 2030 class Summer
+                  Copyright &copy; Hassan Attar for Web project class Summer
                   2023. All rights reserved.
                 </p>
               </div>

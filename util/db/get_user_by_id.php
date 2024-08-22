@@ -1,5 +1,5 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT']."/Fitness-Tracker/model/util/connect_db.php";
+require __DIR__.'../../model/util/connect_db.php';
 function get_user_by_id($id){
   $conn = connect_db();
       

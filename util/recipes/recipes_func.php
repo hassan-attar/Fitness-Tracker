@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT']."/Fitness-Tracker/model/util/connect_db.php";
+require_once __DIR__ . '/../../model/util/connect_db.php';
 function get_all_recipes() {
   $conn = connect_db();
   $sql = "SELECT r.*, i.ingredientsList 
@@ -160,4 +160,3 @@ function render_recipes($recipes){
     ';
   }
 }
-?>
