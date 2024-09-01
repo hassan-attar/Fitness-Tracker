@@ -4,15 +4,13 @@
 
 Welcome to our Fitness Tracker project repository! This project was developed by a team of three students, each contributing their expertise to create a feature-rich fitness tracker application. The team members and their respective roles in the project are as follows:
 
-- **Hassan**: Backend Developer - Primarily responsible for the PHP backend implementation and database design, occasionally contributing to the front-end development.
-- **Nesa**: Hybrid Developer - Contributed to both frontend and backend development.
+- **Hassan**: Developer Lead - Primarily responsible for the PHP backend implementation, database design, DevOps and deployment. I also contributed to the front-end development.
+- **Nesa**: Developer and Product owner - Contributed to both frontend and backend development.
 - **Amir**: Frontend Developer - Focused on building the user interface using jQuery and Vanilla JS.
 
 ## Project Overview
 
 The Fitness Tracker web application was designed with three main sections: recipes, a to-do list for gym workouts, and a fitness tracker. However, due to time constraints, we focused on implementing the recipes functionality, the homepage, and pages related to login and signup.
-
-The application was developed using the PHP/MySQL/jQuery/JavaScript stack. While we couldn't implement all the planned features, we are proud of the functionalities we were able to deliver.
 
 ## Key Features
 
@@ -48,7 +46,9 @@ We crafted the user interface using jQuery and Vanilla JS. Some notable aspects 
 
 ## Learning and Growth
 
-What I found most striking and inspiring was my ability to quickly grasp the PHP syntax and successfully apply the core programming concepts I had acquired from other languages. In just two weeks, we developed a functional and feature-rich backend that I am genuinely proud of, showcasing how a solid foundation in programming concepts can pave the way for rapid learning and adaptation to new technologies.
+What I found most striking and inspiring was my ability to quickly grasp the PHP syntax and successfully apply the core programming concepts I had acquired from other languages. In just two weeks, we developed a functional web application.
+
+While the end result may not be a high-quality, production-ready application, I’m proud of the progress we made as a team and the functional software we delivered in such a short time.
 
 ## Possible Future Improvements
 
